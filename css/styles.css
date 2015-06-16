@@ -1,0 +1,13 @@
+#header {
+    height: 70px;
+}
+
+#home {
+    position: absolute;
+    width: 100%;
+    top: 23%;
+}
+
+.hidden {
+    display: none;
+}

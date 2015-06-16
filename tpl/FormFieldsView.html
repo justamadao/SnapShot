@@ -1,0 +1,25 @@
+<div class="form-group">
+    <label class="control-label" for="title">Title</label>
+    <input id="title" class="form-control" value = "<%= title %>" required autofocus />
+</div>
+<div class="form-group">
+    <label class="control-label" for="description">Description</label>
+    <textarea id="description" class="form-control" value="foo bar" rows="3"></textarea>
+</div>
+<div class="form-group">
+    <label class="control-label" for="address" value="<%= address %>">Address</label>
+    <div class="form-group">
+        <div class="col-sm-9">
+            <input id="address" class="form-control" />
+        </div>
+        <button id="get_current_location" class="btn btn-success col-sm-2">Current</button>
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label" for="tag">Tag</label>
+    <div class="form-group">
+        <div class="col-sm-4">
+            <input id="tag" class="form-control" value="<%= tag %>"/>
+        </div>
+    </div>
+</div>
