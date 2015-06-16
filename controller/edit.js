@@ -8,13 +8,11 @@ snapshot.EditView = Backbone.View.extend({
                     this.initSubview();
                 },
 
-
-
     setModel: function (model) {
                   this.model = model;
               },
 
-    initSubview: function (options) {
+    initSubview: function () {
                      this.formView = new snapshot.FormView();
                      this.imageView = new snapshot.ImageView();
                      this.mapView = new snapshot.MapView();
@@ -53,7 +51,7 @@ snapshot.FormView = Backbone.View.extend({
               },
 
     events: {"submit #snapshot-form": "update",
-             "click #use-current-location": "useCurrentLocation"},
+                "click #use-current-location": "useCurrentLocation"},
 
     update: function (evt) {
         evt.preventDefault();
@@ -78,29 +76,29 @@ snapshot.FormView = Backbone.View.extend({
                                 alert("geo location is not supported");
                             }
                         },
-    
+
     updateAddress: function (position, that) {
                        $.get("http://geocoder.ca/", 
                                {latt: position.coords.latitude,
-                                longt: position.coords.longitude,
-                                reverse: 1,
-                                json: 1})
-                           .done(function (data) {
-                               var addr = data.stnumber + " " +
-                                          data.staddress + ", " + 
-                                          data.city + ", " + 
-                                          data.prov + ". " +
-                                          data.postal;
-                               that.model.set("address", addr);
-                               that.$("#address").val(that.model.attributes.address);
-                           });
+                                   longt: position.coords.longitude,
+                       reverse: 1,
+                       json: 1})
+                        .done(function (data) {
+                            var addr = data.stnumber + " " +
+                                       data.staddress + ", " + 
+                                       data.city + ", " + 
+                                       data.prov + ". " +
+                                       data.postal;
+                            that.model.set("address", addr);
+                            that.$("#address").val(that.model.attributes.address);
+                        });
                    },
 
     getAttributes: function () {
                        return {title: this.$("#title").val(),
-                               description: this.$("#description").val(),
-                               address: this.$("#address").val(),
-                               tag: this.$("#tag").val()};
+                           description: this.$("#description").val(),
+                           address: this.$("#address").val(),
+                           tag: this.$("#tag").val()};
                    },
 
     render: function () {
@@ -111,15 +109,12 @@ snapshot.FormView = Backbone.View.extend({
 
 
 snapshot.ImageView = Backbone.View.extend({
-    initialize: function () {
-                },
-
     setModel: function (model) {
                   this.model = model;
               },
 
     events: {"change #image-upload": "prepareImageUpload",
-             "change #camera-snapshot" : "prepareImageUpload"},
+                "change #camera-snapshot" : "prepareImageUpload"},
 
     prepareImageUpload: function (evt) {
         var input = evt.originalEvent.target;
@@ -131,7 +126,7 @@ snapshot.ImageView = Backbone.View.extend({
             reader.onload = function (evt) {
                 $("#image-preview").attr('src', evt.target.result);
                 model.set("image", evt.target.result);
-            }
+            };
 
             reader.readAsDataURL(input.files[0]);
         }

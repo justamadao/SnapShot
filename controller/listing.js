@@ -1,5 +1,6 @@
 var snapshot = snapshot || {};
 
+
 snapshot.ListingView = Backbone.View.extend({
     initialize: function (collection) {
                     this.collection = collection;
@@ -35,7 +36,6 @@ snapshot.ListingView = Backbone.View.extend({
                    },
 
     deleteSnapshot: function (evt) {
-                         var model = this.collection.get(this.selected_snapshot);
                          snapshot.events.trigger("collection:destroy_snapshot", this.selected_snapshot);
                          this.$("button[class=close]").click();
                      },
@@ -63,8 +63,6 @@ snapshot.SnapshotView = Backbone.View.extend({
 
                     this.$el.html(this.template(this.model.attributes));
                 },
-
-
 
     render: function () {
                 return this;

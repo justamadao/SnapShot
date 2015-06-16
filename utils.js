@@ -1,5 +1,6 @@
 var snapshot = snapshot || {};
 
+
 snapshot.utils = {
     geoLocationSupport: function () {
                             if (navigator.geolocation) {
