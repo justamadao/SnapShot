@@ -87,7 +87,7 @@ snapshot.ImageView = Backbone.View.extend({
                   this.model = model;
               },
 
-    events: {"change #image-upload": "prepareImageUpload,
+    events: {"change #image-upload": "prepareImageUpload",
              "change #camera-snapshot" : "prepareImageUpload"},
 
     prepareImageUpload: function (evt) {
