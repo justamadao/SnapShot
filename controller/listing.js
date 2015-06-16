@@ -22,12 +22,19 @@ snapshot.ListingView = Backbone.View.extend({
                           this.listenTo(snapshot.events, "listing:rerender", this.rerender);
                       },
 
-    events: {"click .snapshot": "showMenu",
+    events: {"click .snapshot": "showModal",
              "click .edit": "editSnapshot",
              "click .delete": "deleteSnapshot"},
 
-    showMenu: function (evt) {
+    showModal: function (evt) {
         this.selected_snapshot = $("input.hidden", evt.currentTarget).val();
+        var model = this.collection.get(this.selected_snapshot);
+        console.log(model);
+        this.$("#modal-image").attr("src", model.get("image"));
+        this.$("#modal-title").text(model.get("title"));
+        this.$("#modal-description").text(model.get("description"));
+        this.$("#modal-address").text(model.get("address"));
+        this.$("#modal-tag").text(model.get("tag"));
     },
 
     editSnapshot: function (evt) {
