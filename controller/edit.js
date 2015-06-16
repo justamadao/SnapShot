@@ -15,7 +15,7 @@ snapshot.EditView = Backbone.View.extend({
     initSubview: function () {
                      this.formView = new snapshot.FormView();
                      this.imageView = new snapshot.ImageView();
-                     this.mapView = new snapshot.MapView();
+                     //this.mapView = new snapshot.MapView();
                  },
 
     render: function () {
@@ -25,7 +25,7 @@ snapshot.EditView = Backbone.View.extend({
                 this.imageView.setModel(this.model);
                 this.$('#image-field').html(this.imageView.render().el);
 
-                this.$('#map').html(this.mapView.render().el);
+                //this.$('#map').html(this.mapView.render().el);
 
                 this.formView.delegateEvents();
                 this.imageView.delegateEvents();
