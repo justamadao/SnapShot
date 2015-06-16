@@ -14,7 +14,6 @@ snapshot.ListingView = Backbone.View.extend({
                 },
 
     init: function (models) {
-              this.collection.each(this.bindModelToCollection, this);
               this.rerender();
           },
 
@@ -48,18 +47,13 @@ snapshot.ListingView = Backbone.View.extend({
 
     renderOne: function (model) {
                    var view = new snapshot.SnapshotView(model);
-                   model.view = view;
                    this.$('#snapshots').prepend(view.render().el);
                },
 
     rerender: function () {
                   this.$("#snapshots").html("");
                   this.collection.each(this.renderOne, this);
-              },
-
-    bindModelToCollection: function (model) {
-                              model.collection = this.collection;
-                          }
+              }
 });
 
 

@@ -52,19 +52,13 @@ snapshot.FormView = Backbone.View.extend({
                   this.model = model;
               },
 
-    events: {"submit #snapshot-form": "update"},
+    events: {"submit #snapshot-form": "update",
+             "click #use-current-location": "useCurrentLocation"},
 
     update: function (evt) {
         evt.preventDefault();
-        var attributes = {
-            title: this.$("#title").val(),
-            description: this.$("#description").val(),
-            address: this.$("#address").val(),
-            tag: this.$("#tag").val()
-        };
 
-        this.model.set(attributes);
-
+        this.model.set(this.getAttributes());
         if (this.model.id){
             snapshot.events.trigger("collection:update_snapshot", this.model);
         } else {
@@ -73,11 +67,48 @@ snapshot.FormView = Backbone.View.extend({
         snapshot.router.navigate("browse", true);
     },
 
+    useCurrentLocation: function (evt) {
+                            evt.preventDefault();
+                            var that = this;
+                            if(snapshot.utils.geoLocationSupport()){
+                                navigator.geolocation.getCurrentPosition(function (position) {
+                                    that.updateAddress(position, that);
+                                });
+                            } else {
+                                alert("geo location is not supported");
+                            }
+                        },
+    
+    updateAddress: function (position, that) {
+                       $.get("http://geocoder.ca/", 
+                               {latt: position.coords.latitude,
+                                longt: position.coords.longitude,
+                                reverse: 1,
+                                json: 1})
+                           .done(function (data) {
+                               var addr = data.stnumber + " " +
+                                          data.staddress + ", " + 
+                                          data.city + ", " + 
+                                          data.prov + ". " +
+                                          data.postal;
+                               that.model.set("address", addr);
+                               that.$("#address").val(that.model.attributes.address);
+                           });
+                   },
+
+    getAttributes: function () {
+                       return {title: this.$("#title").val(),
+                               description: this.$("#description").val(),
+                               address: this.$("#address").val(),
+                               tag: this.$("#tag").val()};
+                   },
+
     render: function () {
                 this.$el.html(this.template(this.model.attributes));
                 return this;
             }
 });
+
 
 snapshot.ImageView = Backbone.View.extend({
     initialize: function () {
