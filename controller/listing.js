@@ -29,7 +29,6 @@ snapshot.ListingView = Backbone.View.extend({
     showModal: function (evt) {
         this.selected_snapshot = $("input.hidden", evt.currentTarget).val();
         var model = this.collection.get(this.selected_snapshot);
-        console.log(model);
         this.$("#modal-image").attr("src", model.get("image"));
         this.$("#modal-title").text(model.get("title"));
         this.$("#modal-description").text(model.get("description"));
